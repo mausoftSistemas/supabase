@@ -269,6 +269,7 @@ services:
             - 172.18.0.1  # Docker custom network
             - 172.19.0.1  # Docker custom network alt
             - 10.0.0.0/8  # Rango privado común en EasyPanel
+            - 181.116.200.84  # IP pública de desarrollo
           deny: []
 
   ## Protected Dashboard - catch all remaining routes

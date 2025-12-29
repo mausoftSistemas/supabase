@@ -423,6 +423,13 @@ services:
     ports:
       - ${POSTGRES_PORT}:5432
       - ${POOLER_PROXY_PORT_TRANSACTION}:6543
+    labels:
+      # Traefik TCP routing para exponer PostgreSQL pooler externamente
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.supabase-postgres.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.supabase-postgres.entrypoints=postgres"
+      - "traefik.tcp.routers.supabase-postgres.service=supabase-postgres"
+      - "traefik.tcp.services.supabase-postgres.loadbalancer.server.port=6543"
     volumes:
       - ./volumes/pooler/pooler.exs:/etc/pooler/pooler.exs:ro,z
     healthcheck:
